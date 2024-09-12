@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object cheat sheet</title>
+</head>
+<body>
+    <ul id="profiles"></ul>
+
+    <script>
+        const lecturers = [
+        {
+            personname: "Aynazar Ayni",
+            office: "D1-016",
+            email: "ayanzarayni@gmail.com",
+            birthyear: 2001,
+            courses: ["Innføring i programmering","Kommunisjonsdesign","UI Designprosjekt", "utvikling av interaktive nettsteder"]
+        },
+        {
+            personname:"Ann-charlott Karlsen",
+            office:"D1-062",
+            email: "ackarlse@hiof.no",
+            birthyear: 1992,
+            courses:["Webutvikling", "utvikling av interaktive nettsteder"]
+        },
+        {
+            personname:"Ole Edvard Ørebæk",
+            office:"D1-061A",
+            email:"oledvo@hiof.no",
+            birthyear: 1993,
+            courses:["Innføring i datasikkerhet"]
+        },
+        {
+            personname:"Daniela Blauhut",
+            office:"D1-015",
+            email:"danieb@hiof.no",
+            birthyear: 1977,
+            courses:["Designmetoder, UI designprosjekt"]
+        }
+    ]
+        /*
+            Vi skal skrive ut hver foreleser i arrayen som et listepunkt: <li>
+            Vi må gå gjennom hele array: .map
+            Når vi .mapper, må vi mellomlagere element i en variable: lecturer
+            For hver lecturer, må vi legge til en <li> i <ul id="profiles">
+        */
+       lecturers.map(lecturer => document.getElementById("profiles").innerHTML += `<li>${lecturer.personname} 
+            <ul>
+                ${lecturer.courses.map(course => `<li>${course}</li>`).join("")}
+            </ul>
+        </li>`)
+        
+        /*
+        Dersom vi brukker .map på en array med kun teskstrenger, må vi bruke metode join( )
+        etter vi har kjørt .map for å fjerne .maps komme-generering. 
+        */
+        
+
+
+        //document.getElementById("contactinfo").innerHTML = `${lecturer.personname} sitter på kontor ${lecturer.office}. Epost: ${lecturer.email}.Favorittkurset hans er ${lecturer.courses[0]}.`
+
+        //den console pakker lecturer
+        console.log(lecturers)
+    </script>
+</body>
+</html>

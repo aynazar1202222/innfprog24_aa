@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object cheat sheet</title>
+</head>
+<body>
+    <p id="contactinfo"></p>
+
+    <script>
+        const lecturer = {
+            personname: "Aynazar Ayni",
+            office: "D1-016",
+            email: "ayanzarayni@gmail.com",
+            birthyear: 2001,
+            courses: ["Innføring i programmering","Kommunisjonsdesign","UI Designprosjekt", "utvikling av interaktive nettsteder"]
+        }   
+
+        document.getElementById("contactinfo").innerHTML = `${lecturer.personname} sitter på kontor ${lecturer.office}.
+        Epost: ${lecturer.email}.Favorittkurset hans er ${lecturer.courses[0]}.`
+
+        //den console pakker lecturer
+        console.log(document.getElementById("contactinfo"))
+    </script>
+</body>
+</html>
