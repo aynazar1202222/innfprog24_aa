@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>karakterkalkulator</title>
+    <style>
+        body{
+            background-color: gray;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, san-serif;
+        }
+        h1{
+            color: white; 
+            margin-top: 20px;
+            font-size: 3em;
+            /* Har fått den koden (-webkit-text-stroke) ved å sprøke 
+            chatGPT hvoedan setter jeg stroke for font? */
+            -webkit-text-stroke: 1px pink; 
+            text-shadow: 1px 1px 5px pink; 
+        }
+        input[type="number"]{
+            background-color:lightgray;
+            border: none;
+            padding: 10px;
+            width: 120px;
+            margin: 10px;
+            display: block;
+            font-size: 1.2em;
+        }
+        label{
+            font-size: 1.3em;
+            color: white;
+        }
+        button{
+            background-color: gray;
+            border: 2px solid white;
+            color: yellow;
+            padding: 10px;
+            margin-top: 10px;
+            display: block;
+            font-size: 1.5em;
+        }
+        #eksamenkarakterKalkulator {
+            text-align: center;
+            font-size: 1.5em;
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Beregn karakteren din her</h1>
+    <p id="eksamenkarakterKalkulator"></p>
+    <!--For typene range og number kan man sette hva er størst og hva er mins verdi for 
+    jeg har fått kode max og min fra boka (programering i JavaScript side: 44)-->
+    <p>
+        <label for="PoengOppgave1">Oppgave 1:</label>
+        <input id="PoengOppgave1" type="number" max="10" min="0">
+    </p>
+    <p>
+        <label for="PoengOppgave2">Oppgave 2:</label>
+        <input id="PoengOppgave2" type="number" max="12" min="0">
+    </p>
+    <p><button onclick="poengCalculator()">Beregn karakter</button></p>
+    
+    <script>
+        function poengCalculator(){
+        //Hent karakter fra inputs:
+        let PoengOppgave1 = document.getElementById("PoengOppgave1").value 
+        let PoengOppgave2 = document.getElementById("PoengOppgave2").value 
+
+        // Hent karakter Karakterskalaen
+        const grades = [
+            {grade: "F", treshold: 0},
+            {grade: "E", treshold: 25},
+            {grade: "D", treshold: 44},
+            {grade: "C", treshold: 68},
+            {grade: "B", treshold: 88},
+            {grade: "A", treshold: 100}
+        ]
+
+        //skriv inn maksimaltPoeng til Oppgave1 og Oppgave 2
+        let maxPoengOppgave1 = 10
+        let maxPoengOppgave2 = 12
+
+        //Regn ut karakteren med gitt formel 
+        let poeng = (0.3 * (PoengOppgave1 / maxPoengOppgave1 * 100)) + (0.7 * (PoengOppgave2 / maxPoengOppgave2 * 100))
+        console.log(poeng)
+
+        //Skjekker om det er satt feil tall på (https://www.w3schools.com/jsref/jsref_if.asp og https://www.w3schools.com/jsref/jsref_return.asp )
+        if(PoengOppgave1 > maxPoengOppgave1 || PoengOppgave2 > maxPoengOppgave2){
+            document.getElementById("eksamenkarakterKalkulator").innerHTML = "Du har skrevt flere poeng enn maxpoeng!" 
+            return 
+        }
+
+        if(PoengOppgave1 == ""  || PoengOppgave2 =="" ) {
+            document.getElementById("eksamenkarakterKalkulator").innerHTML = "Du Må skrive inn poeng!"
+            return
+        }
+
+
+        //Lag en loop for array som skjekker ut riktig karakter (https://www.w3schools.com/js/js_loop_for.asp, fra boka (programering i JavaScript side: 112 og 122), https://www.w3schools.com/js/js_arrays.asp og )
+        let = grades.length
+        let riktiggrade = ""
+        for(let i = 0; i < grades.length; i++){
+            if(poeng <=grades [i].treshold){
+                riktiggrade = grades[i].grade
+                break
+            }
+        }
+        //Skrive ut den riktig karakteren 
+        document.getElementById("eksamenkarakterKalkulator").innerHTML = "Ut i fra dine karakter har du fått: " + riktiggrade
+        }
+       
+
+    </script>
+</body>
+</html>

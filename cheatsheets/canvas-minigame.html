@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Mini game</title>
+    <style>
+        body{
+            background: #eee;
+            display: flex;
+            justify-items: center; 
+            align-items: center;
+        }
+        canvas{
+            background: #fff; 
+        }
+    </style>
+</head>
+<body>
+    <canvas id="anim-area"></canvas>
+
+    <script>
+        // Canvas konfigrasjon:
+        const c = document.getElementById("anim-area")
+        c.width = 900 
+        c.height= 600
+        const ctx = c.getContext("2d")
+
+        //RequestAnimationFrame: automatiser nye bildetegninger 
+        const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAmimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame
+
+        //Spillkonfigurasjon: 
+        const game = {
+            speed: 3
+        }
+       
+        // Definerer startpunkter: 
+        const hero ={
+            x: 100,
+            y: 100,
+            w: 15,
+            h: 15
+        }
+
+        //Definerer variabler for å sjekke om en rettning er aktiv:
+        let up = false 
+        let down = false 
+        let right = false 
+        let left = false 
+        
+        //sjekk om en rettning er aktivert med pilltast:
+        document.addEventListener("keydown", function(event) {
+            if(event.key === "d" || event.key === "ArrowRight") {
+                right = true
+            }
+            if(event.key === "s" || event.key === "ArrowDown") {
+                down = true
+            }
+            if(event.key === "a" || event.key == "ArrowLeft") {
+                left = true
+            }
+            if(event.key === "w" || event.key === "ArrowUp") {
+                up = true
+            }
+            if(event.key === "h") {
+                game.speed = 10
+            }
+        }) 
+
+        document.addEventListener("keyup", function(event) {
+            if(event.key === "d" || event.key === "ArrowRight") {
+                right = false
+            }
+            if(event.key ==="s" || event.key === "ArrowDown") {
+                down = false
+            }
+            if(event.key ==="a" || event.key === "ArrowLeft") {
+                left = false
+            }
+            if(event.key ==="w" || event.key === "ArrowUp") {
+                up = false
+            }
+            if(event.key === "h") {
+                game.speed = 3
+            }
+        })
+
+
+
+        //Rekusiv funksjon som kaller seg selv avhengig av skjerm/nettleser den vises i 
+        function frames() {
+            // Tøm frame for ny opptegning 
+            ctx.clearRect(0,0,c.width,c.height)
+
+            //Tegne helten
+            ctx.beginPath()
+            ctx.rect(hero.x, hero.y, hero.w, hero.h)
+            ctx.fill()
+            ctx.closePath()
+
+            //sjekker etter bevegelse:
+            right ? hero.x = hero.x + game.speed: null
+            left ? hero.x = hero.x - game.speed: null
+            up ? hero.y = hero.y - game.speed: null
+            down ? hero.y = hero.y + game.speed: null
+
+            //Sjekker om firkant er utenfor canvas 
+            if(hero.x < 0) {
+                hero.x = c.width
+            }
+            if(hero.x > c.width) {
+                hero.x = 0
+            }
+            if(hero.y < 0) {
+                hero.y = c.height
+            }
+            if(hero.y > c.height) {
+                hero.y = 0
+            }
+
+
+            //Testuskrift for å bekreft at requestAnimationFrame kjører
+            console.log("requestAnimationFrame fungerer")
+            //Rekursivt kall: 
+            requestAnimationFrame(frames)  
+
+        }
+        //Kaller frames()-funksjon først gang:
+        frames()
+    </script>
+</body>
+</html>
